@@ -8,7 +8,7 @@ public class SubjectRepository : ISubjectRepository
     private readonly StudentDataContext _subjectContext;
     public SubjectRepository(StudentDataContext subjectContext)
     {
-       _subjectContext = subjectContext;
+        _subjectContext = subjectContext;
 
     }
     public void Add(Subject newT)
