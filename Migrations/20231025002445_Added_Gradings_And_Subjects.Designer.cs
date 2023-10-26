@@ -25,9 +25,9 @@ namespace Student.Web.Api.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Grade")
+                    b.Property<int>("Grade")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Remarks")
                         .IsRequired()
