@@ -1,33 +1,26 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\inCoder\\Documents\\OOP\\Lab\\REST\\Student.Web.Api\\Student.Web.Api.csproj": {}
+    "C:\\Users\\tabol\\RiderProjects\\Git_Clone_ver2\\Cloned_Repo\\Student.Web.Api.csproj": {}
   },
   "projects": {
-    "C:\\Users\\inCoder\\Documents\\OOP\\Lab\\REST\\Student.Web.Api\\Student.Web.Api.csproj": {
+    "C:\\Users\\tabol\\RiderProjects\\Git_Clone_ver2\\Cloned_Repo\\Student.Web.Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\inCoder\\Documents\\OOP\\Lab\\REST\\Student.Web.Api\\Student.Web.Api.csproj",
+        "projectUniqueName": "C:\\Users\\tabol\\RiderProjects\\Git_Clone_ver2\\Cloned_Repo\\Student.Web.Api.csproj",
         "projectName": "Student.Web.Api",
-        "projectPath": "C:\\Users\\inCoder\\Documents\\OOP\\Lab\\REST\\Student.Web.Api\\Student.Web.Api.csproj",
-        "packagesPath": "C:\\Users\\inCoder\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\inCoder\\Documents\\OOP\\Lab\\REST\\Student.Web.Api\\obj\\",
+        "projectPath": "C:\\Users\\tabol\\RiderProjects\\Git_Clone_ver2\\Cloned_Repo\\Student.Web.Api.csproj",
+        "packagesPath": "C:\\Users\\tabol\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\tabol\\RiderProjects\\Git_Clone_ver2\\Cloned_Repo\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\inCoder\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\tabol\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "C:\\Program Files\\dotnet\\library-packs": {},
-          "C:\\Users\\inCoder\\Downloads": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
