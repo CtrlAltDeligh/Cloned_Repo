@@ -32,12 +32,7 @@ public class GradingRepository : IGradingRepository
         var theGrading = await _gradingContext.Grading.FindAsync(id);
         theGrading.Id = input.Id;
         theGrading.Grade = input.Grade;
-        if (theGrading.Grade >= 75)
-        {
-            theGrading.Remarks = "Passed";
-        }
-
-        theGrading.Remarks = "Failed";
+        theGrading.Remarks = input.Remarks;
     }
 
     public async Task<List<Grading>> GetAllAsync()

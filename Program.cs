@@ -13,6 +13,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<StudentDataContext>();
 builder.Services.AddScoped<IPupilRepository, PupilRepository>();
 builder.Services.AddScoped<ISubjectRepository, SubjectRepository>();
+builder.Services.AddScoped<IGradingRepository, GradingRepository>();
 
 var app = builder.Build();
 

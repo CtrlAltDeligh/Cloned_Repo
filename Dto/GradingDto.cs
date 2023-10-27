@@ -6,7 +6,7 @@ public class GradingDto
 {
     public int Id { get; set; }
     public int Grade { get; set; }
-    public string Remarks { get; set; } = String.Empty;
+    public string? Remarks { get; set; }
 
 
 

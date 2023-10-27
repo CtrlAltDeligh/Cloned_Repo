@@ -26,29 +26,48 @@ namespace Student.Web.Api.Controllers
         {
             
             var gradings = await _gradingRepository.GetAllAsync();
+           
+            
             if (gradings == null || !gradings.Any())
             {
                 // Database is empty, return "empty"
                 return Ok("Empty");
             }
             _logger.LogInformation("Getting all list..");
+            
+           
             return Ok(gradings);
         }
+
+       
+       
+        
 
         [HttpPost()]
         public async Task<IActionResult> Post(GradingDto input)
         {
             var newGrade = new Grading(input.Id);
+            input.Remarks = null;
             newGrade.Id = input.Id;
             newGrade.Grade = input.Grade;
-            if (newGrade.Grade >= 75)
+            if (input.Grade <= 0 || input.Grade >= 101)
             {
-                newGrade.Remarks = "Passed.";
+                return BadRequest("Invalid Grades");
             }
 
-            newGrade.Remarks = "Failed";
+            if (input.Remarks == null)
+            {
+                
+                input.Remarks = CalculateRemarks();
+            }
+            newGrade.Remarks = CalculateRemarks();
+            
 
-
+             string CalculateRemarks()
+            {
+                
+                return newGrade.Grade >= 75 ? "Passed" : "Failed";
+            }
             _gradingRepository.Add(newGrade);
 
             if (await _gradingRepository.SaveAllChangesAsync())
@@ -62,18 +81,23 @@ namespace Student.Web.Api.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(GradingDto input)
         {
-            var grading = await _gradingRepository.GetById(input.Id);
-            grading.Id = input.Id;
-            grading.Grade = input.Grade;
-            if (grading.Grade >= 75)
+            if (input.Grade <= 0 || input.Grade >= 101)
             {
-                grading.Remarks = "Passed.";
-                
+                return BadRequest("Invalid Grade");
             }
 
-            grading.Remarks = "Failed";
-            
+            var grading = await _gradingRepository.GetById(input.Id);
 
+            if (grading == null)
+            {
+                return NotFound("Resource not found.");
+            }
+
+            grading.Id = input.Id;
+            grading.Grade = input.Grade;
+
+            // Calculate remarks based on the input grade
+            grading.Remarks = CalculateRemarks(grading.Grade);
 
             if (await _gradingRepository.SaveAllChangesAsync())
             {
@@ -82,6 +106,13 @@ namespace Student.Web.Api.Controllers
 
             return BadRequest("Error");
         }
+
+        private string CalculateRemarks(int grade)
+        {
+            return grade >= 75 ? "Passed" : "Failed";
+        }
+
+
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
@@ -92,11 +123,11 @@ namespace Student.Web.Api.Controllers
             _gradingRepository.Delete(grading);
             if (await _gradingRepository.SaveAllChangesAsync())
             {
-                return Ok($"Subject with id {grading.Id} is succesfully deleted.");
+                return Ok($"Grade with subject id {grading.Id} is succesfully deleted.");
             }
 
 
-            return BadRequest("May Error");
+            return BadRequest($"{id} is not found.");
         }
 
 

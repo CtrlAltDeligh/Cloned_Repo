@@ -8,6 +8,8 @@ namespace Student.Web.Api.Models
         }
         public int Id { get; set; }
         public int Grade { get; set; }
-        public string Remarks { get; set; }
+        public string? Remarks { get; set; }
+
+       
     }
 }

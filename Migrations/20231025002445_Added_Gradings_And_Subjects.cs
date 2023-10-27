@@ -17,7 +17,7 @@ namespace Student.Web.Api.Migrations
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Grade = table.Column<string>(type: "TEXT", nullable: false),
-                    Remarks = table.Column<string>(type: "TEXT", nullable: false)
+                    Remarks = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
