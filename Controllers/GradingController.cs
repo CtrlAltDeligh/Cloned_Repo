@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Student.Web.Api.Data;
 using Student.Web.Api.Dto;
 using Student.Web.Api.Models;
@@ -38,79 +39,78 @@ namespace Student.Web.Api.Controllers
            
             return Ok(gradings);
         }
-
-       
-       
-        
-
         [HttpPost()]
         public async Task<IActionResult> Post(GradingDto input)
         {
-            var newGrade = new Grading(input.Id);
-            input.Remarks = null;
-            newGrade.Id = input.Id;
-            newGrade.Grade = input.Grade;
-            if (input.Grade <= 0 || input.Grade >= 101)
+            try
             {
-                return BadRequest("Invalid Grades");
-            }
-
-            if (input.Remarks == null)
-            {
+                var newGrade = new Grading(input.Id);
                 
-                input.Remarks = CalculateRemarks();
-            }
-            newGrade.Remarks = CalculateRemarks();
-            
+                newGrade.Id = input.Id;
+                newGrade.Grade = input.Grade;
 
-             string CalculateRemarks()
+                if (input.Grade <= 0 || input.Grade >= 101)
+                {
+                    return BadRequest("Invalid Grades");
+                }
+
+
+                _gradingRepository.Add(newGrade);
+                var response = new Grading()
+                {
+                    Id = newGrade.Id,
+                    Grade = newGrade.Grade,
+                  //  Remarks = newGrade.Remarks 
+
+                };
+                if (await _gradingRepository.SaveAllChangesAsync())
+                {
+                    return Ok(response);
+                }
+
+                return BadRequest("404 not found!");
+            }
+            catch (DbUpdateException ex)
             {
-                
-                return newGrade.Grade >= 75 ? "Passed" : "Failed";
+                // Handle unique constraint violation (PK duplication)
+                return BadRequest("The primary key is already used for another record.");
             }
-            _gradingRepository.Add(newGrade);
-
-            if (await _gradingRepository.SaveAllChangesAsync())
+            catch (Exception ex)
             {
-                return Ok(input);
+                // Handle other exceptions
+                // You can log the exception and return an appropriate error response.
+                return StatusCode(500, "An error occurred while processing the request.");
             }
-
-            return BadRequest("404 not found!");
         }
+
 
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(GradingDto input)
         {
+            var grading = await _gradingRepository.GetById(input.Id);
+    
+            if (grading == null)
+            {
+                return NotFound($"Resource with Id {input.Id} not found.");
+            }
+
+            // Update the properties if input is valid
             if (input.Grade <= 0 || input.Grade >= 101)
             {
                 return BadRequest("Invalid Grade");
             }
-
-            var grading = await _gradingRepository.GetById(input.Id);
-
-            if (grading == null)
-            {
-                return NotFound("Resource not found.");
-            }
-
+    
             grading.Id = input.Id;
             grading.Grade = input.Grade;
-
-            // Calculate remarks based on the input grade
-            grading.Remarks = CalculateRemarks(grading.Grade);
 
             if (await _gradingRepository.SaveAllChangesAsync())
             {
                 return Ok("Update successfully");
             }
 
-            return BadRequest("Error");
+            return BadRequest("Error updating the resource.");
         }
 
-        private string CalculateRemarks(int grade)
-        {
-            return grade >= 75 ? "Passed" : "Failed";
-        }
 
 
 

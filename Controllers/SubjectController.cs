@@ -55,10 +55,10 @@ namespace Student.Web.Api.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(SubjectDto input)
+        public async Task<IActionResult> Put(int id, SubjectDto input)
         {
-            var subject = await _subjectRepository.GetById(input.id);
-            subject.Id = input.id;
+            var subject = await _subjectRepository.GetById(id);
+            
             subject.Code = input.Code;
             subject.Title = input.Title;
 
@@ -75,6 +75,7 @@ namespace Student.Web.Api.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             var subject = await _subjectRepository.GetById(id);
+          
 
             if (subject != null)
             {
@@ -86,7 +87,7 @@ namespace Student.Web.Api.Controllers
             }
 
 
-            return BadRequest("May Error");
+            return BadRequest($"Subject with id {id} is not found.");
         }
 
 

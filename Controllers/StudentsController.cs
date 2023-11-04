@@ -34,7 +34,7 @@ namespace Student.Web.Api.Controllers
         {
             var newPupil = new Pupil(input.StudentId);
             newPupil.LastName = input.LastName;
-            newPupil.FirsName = input.FirsName;
+            newPupil.FirstName = input.FirstName;
             newPupil.MiddleName = input.MiddleName;
 
             _pupilRepository.Add(newPupil);
@@ -48,20 +48,32 @@ namespace Student.Web.Api.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(PupilDto input)
+        public async Task<IActionResult> Update(PupilDto input)
         {
-            var pupil = await _pupilRepository.GetById(input.StudentId);
-            pupil.LastName = input.LastName;
-            pupil.FirsName = input.FirsName;
-            pupil.MiddleName = input.MiddleName;
-            
-            if ( await _pupilRepository.SaveAllChangesAsync())
+            if (input == null)
             {
-                return Ok("Updated Na!");
+                return BadRequest("Invalid input.");
             }
 
-            return BadRequest("May Error");
+            var pupil = await _pupilRepository.GetById(input.StudentId);
+
+            if (pupil == null)
+            {
+                return NotFound("Pupil not found.");
+            }
+
+            pupil.LastName = input.LastName;
+            pupil.FirstName = input.FirstName; 
+            pupil.MiddleName = input.MiddleName;
+
+            if (await _pupilRepository.SaveAllChangesAsync())
+            {
+                return Ok("Successfully Updated.");
+            }
+
+            return BadRequest("Error updating pupil.");
         }
+
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(string id)
@@ -73,12 +85,12 @@ namespace Student.Web.Api.Controllers
                 _pupilRepository.Delete(pupil);
                 if ( await _pupilRepository.SaveAllChangesAsync())
                 {
-                    return Ok("Finis Na!");
+                    return Ok($"Student with {id} number is successfully deleted.");
                 }
             }
 
 
-            return BadRequest("May Error");
+            return BadRequest($"Student with id {id} number is not found.");
         }
 
 

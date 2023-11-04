@@ -34,7 +34,7 @@ namespace Student.Web.Api.Data
             // Get the pupil
             var thePupil = await _studentContex.Students.FindAsync(id);
             thePupil.LastName = input.LastName;
-            thePupil.FirsName = input.FirsName;
+            thePupil.FirstName = input.FirstName;
             thePupil.MiddleName = input.MiddleName;
         }
 

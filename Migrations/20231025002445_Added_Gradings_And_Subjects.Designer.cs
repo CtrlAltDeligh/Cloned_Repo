@@ -30,7 +30,7 @@ namespace Student.Web.Api.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Remarks")
-                        
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -43,7 +43,7 @@ namespace Student.Web.Api.Migrations
                     b.Property<string>("StudentId")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("FirsName")
+                    b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("TEXT");
 

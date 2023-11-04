@@ -14,7 +14,7 @@ namespace Student.Web.Api.Models
 
         public string StudentId { get; private set; }
         public string LastName { get; set; } = string.Empty;
-        public string FirsName { get; set; } = string.Empty;
+        public string FirstName { get; set; } = string.Empty;
         public string MiddleName { get; set; } = string.Empty;
         public string MiddleInitial 
         { 

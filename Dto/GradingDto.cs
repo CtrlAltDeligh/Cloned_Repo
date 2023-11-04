@@ -6,7 +6,14 @@ public class GradingDto
 {
     public int Id { get; set; }
     public int Grade { get; set; }
-    public string? Remarks { get; set; }
+
+  /*  public string? Remarks
+    {
+        get
+        {
+            return Grade >= 75 ? "Passed" : "Failed";
+        }
+    }*/
 
 
 

@@ -32,7 +32,8 @@ public class GradingRepository : IGradingRepository
         var theGrading = await _gradingContext.Grading.FindAsync(id);
         theGrading.Id = input.Id;
         theGrading.Grade = input.Grade;
-        theGrading.Remarks = input.Remarks;
+        
+       // theGrading.Grade_Equivalent = input.Grade_Equivalent;
     }
 
     public async Task<List<Grading>> GetAllAsync()
